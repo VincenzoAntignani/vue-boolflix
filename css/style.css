@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 100vh;
+}
+#root {
+  height: 100vh;
+}
+/* Utilities */
+
+header {
+  height: 70px;
+  background: #161616;
+}
+.wrapper_80 {
+  width: 80%;
+  height: 100%;
+  margin:auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.wrapper_80 img {
+  width: 180px;
+}
+.wrapper_80 input, .wrapper_80 button {
+  padding: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  padding: 20px;
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+  background: #849793;
+}
+main .card {
+  position: relative;
+  margin: 10px;
+  width: 220px;
+  height: 330px;
+  background: #515151;
+  /* overflow-y: auto; */
+}
+.card img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: 0.5s;
+}
+.card:hover img {
+  display: none;
+}
+.card:hover .info {
+  opacity: 1;
+}
+.card .info {
+  width: 100%;
+  height: 100%;
+  padding: 30px 10px;
+  width: 100%;
+  overflow-y: auto;
+  opacity: 0;
+}
+.card .info h4 {
+  margin: 5px 0;
+  color: white;
+}
+.card .info h4 > span {
+  font-weight: 400;
+  color: lightgrey;
+}
+.card .info h4 > span > i {
+  color: #fcd503;
+}
