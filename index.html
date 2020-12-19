@@ -21,7 +21,16 @@
       <header>
         <div class="wrapper_80">
           <div class="header_content">
-            <img src="img/logo.png" alt="logo-netflix">
+            <div class="nav_bar">
+              <img src="img/logo.png" alt="logo-netflix">
+              <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="" @click="showTopRated()">Più votati</a></li>
+                <li><a href="">Film</a></li>
+                <li><a href="">Popolari</a></li>
+                <li><a href="">La mia lista</a></li>
+              </ul>
+            </div>
             <div class="cont_input">
               <input type="text" name="" value="" placeholder="Cerca" v-model="text" @keyup.enter="searchFilms()">
               <button type="button" name="button" @click="searchFilms()">
@@ -34,32 +43,37 @@
 
       <main>
         <div class="wrapper_80">
-          <div class="search_content">
-            <div class="card" v-for="film in films" v-if="films.length != 0">
-            <img
-            :src="(film.poster_path == null) ? alternative_path : path + film.poster_path"
-            alt="cover">
-            <div class="info">
-              <h4>Titolo: <span>{{film.title}}</span></h4>
-              <h4>Titolo originale: <span>{{film.original_title}}</span></h4>
-              <h4>Voto: <span>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </span></h4>
 
-              <div class="overview">
-                <h4>Overview:
-                  <span>{{(film.overview == '') ? alternative_overview : film.overview}}</span></h4>
+          <div class="search_content">
+            <div class="card" v-for="(film, index) in films" v-if="films.length != 0">
+              <img
+              :src="(film.poster_path == null) ? alternative_path : path + film.poster_path"
+              alt="cover">
+              <div class="info">
+                <h4>Titolo: <span>{{film.title}}</span></h4>
+                <h4 v-if="(film.original_title != film.title)">
+                  Titolo originale: <span>{{film.original_title}}</span></h4>
+                <h4>Voto: <span>
+                <!-- {{film.star}} -->
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                </span></h4>
+
+                <div class="overview">
+                  <h4>Overview:
+                    <span>{{(film.overview == '') ? alternative_overview : film.overview}}</span></h4>
+                </div>
               </div>
             </div>
-          </div>
+
           </div>
         </div>
+
       </main>
-      
+
     </div>
 
 

@@ -18,7 +18,7 @@ const app = new Vue (
         } else if (this.text.length < 3) {
           this.text = '';
           alert("Inserisci almeno tre caratteri")
-        } 
+        }
 
         axios
           .get('https://api.themoviedb.org/3/search/movie', {
@@ -32,13 +32,20 @@ const app = new Vue (
           .then(function(response) {
               self.films = response.data.results;
 
+              // self.films.forEach(
+              //   (element) =>
+              //     {
+              //
+              //   }
+              // );
+
+
             }
           )
+      }, // searchFilms
 
-
-
-      } // searchFilms
     }, //Methods
+
 
 
 
