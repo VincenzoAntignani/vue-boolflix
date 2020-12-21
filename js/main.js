@@ -7,6 +7,7 @@ const app = new Vue (
       text: '',
       alternative_path: 'https://www.baserunning.it/wp-content/uploads/2020/05/immagine-non-disponibile.png',
       alternative_overview: 'Descrizione al momento non disponibile',
+      result_search: -1,
     },
     methods: {
       searchFilms: function() {
@@ -21,7 +22,7 @@ const app = new Vue (
         }
 
         axios
-          .get('https://api.themoviedb.org/3/search/movie', {
+          .get('https://api.themoviedb.org/3/search/movie',  {
             params: {
               api_key: 'd631125b3120a33333b536f9aa3c36e9',
               query: this.text,
@@ -31,17 +32,20 @@ const app = new Vue (
           )
           .then(function(response) {
               self.films = response.data.results;
+              // console.log(self.films)
+              self.result_search = response.data.total_results;
 
-              // self.films.forEach(
-              //   (element) =>
-              //     {
-              //
-              //   }
-              // );
+              //ciclo sull'array films, modifico l'elemento vote_Average e lo gestisco nell'html
+              self.films.forEach(
+                (element) =>
+                  {
+                  element.vote_average = Math.ceil(element.vote_average /2);
 
-
+                }
+              );
             }
           )
+
       }, // searchFilms
 
     }, //Methods

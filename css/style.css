@@ -1,19 +1,21 @@
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 body {
   height: 100vh;
-  /* background: url('https://pro2-bar-s3-cdn-cf.myportfolio.com/e71e323ad48450c4510df00361f42407/8bc320a7-3260-49bb-9d65-f2b5311800f4_rw_1200.gif?h=c42e1f71e42fb8738bc608e6fcf8d307'); */
+  /* background: url('https://www.requalifica.net/images/pic02.gif'); */
   background-image: url('../img/sfondo2.gif');
   background-size: cover;
   background-position: center;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 #root {
   height: 100vh;
 }
+
+
 
 /* Scroll bar */
 ::-webkit-scrollbar{
@@ -24,7 +26,7 @@ body {
   background-color: lightgrey;
 }
 ::-webkit-scrollbar-thumb:hover{
-  background-color: lightgreen;
+  background-color: #dc131e;
 }
 /* /Scroll bar */
 
@@ -82,14 +84,20 @@ header {
 }
 .header_content .cont_input input, .header_content .cont_input button {
   padding: 10px;
-  border: none;
+  border: 1px solid white;
   outline: none;
-  background: white;
+  background: none;
+}
+.header_content .cont_input input {
+  border-right: none;
+}
+.header_content .cont_input input[placeholder] {
+  color: white;
 }
 .header_content .cont_input button {
   color: #949493;
-  border-left: 1px solid #949493;
   cursor: pointer;
+  border-left: none;
   transition: 0.5s;
 }
 .header_content .cont_input button:hover i {
@@ -98,10 +106,28 @@ header {
 
 /* Main */
 main {
+  display: flex;
   position: relative;
+  padding: 50px 0;
   height: calc(100% - 70px);
   overflow: auto;
 }
+
+main .search_failed {
+  margin: auto;
+  padding: 20px;
+  width: 50%;
+  background: #151c1d;
+  color: white;
+}
+.search_failed > * {
+  margin: 10px 0;
+}
+.search_failed ul {
+  list-style: inherit;
+  padding-left: 30px;
+}
+
 main .search_content {
   display: flex;
   flex-wrap: wrap;
@@ -118,7 +144,7 @@ main .search_content {
   box-shadow: 0px 0px 8px 3px rgba(0,0,0,0.8);
 }
 
-.search_content .card img {
+.search_content .card > img {
   position: absolute;
   top: 0;
   left: 0;
@@ -129,14 +155,14 @@ main .search_content {
   opacity: 1;
   transition: 0.5s;
 }
-.search_content .card:hover img {
+.search_content .card:hover > img {
   opacity: 0;
   cursor: pointer;
 }
 .search_content .card .info {
   width: 100%;
   height: 100%;
-  padding: 30px 10px;
+  padding: 15px 10px;
   width: 100%;
   transition: 0.5s;
 }
@@ -145,7 +171,8 @@ main .search_content {
   cursor: pointer;
 }
 .search_content .card:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
+  z-index: 999;
 }
 .search_content .card .info h4 {
   margin: 5px 0;
@@ -158,9 +185,16 @@ main .search_content {
 .search_content .card .info h4 > span > i {
   color: #fcd503;
 }
+.search_content .card .info .flag {
+  display: flex;
+  align-items: center;
+}
+.search_content .card .info .flag h4 > img {
+  height: 20px;
+}
 .search_content .card .info .overview {
   position: relative;
-  max-height: 150px;
+  max-height: 100px;
   overflow-y: auto;
   opacity: 0;
   transition: 0.5s;

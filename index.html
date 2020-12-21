@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <!-- Axios -->
@@ -43,42 +43,67 @@
 
       <main>
         <div class="wrapper_80">
-
           <div class="search_content">
-            <div class="card" v-for="(film, index) in films" v-if="films.length != 0">
-              <img
-              :src="(film.poster_path == null) ? alternative_path : path + film.poster_path"
-              alt="cover">
-              <div class="info">
-                <h4>Titolo: <span>{{film.title}}</span></h4>
-                <h4 v-if="(film.original_title != film.title)">
-                  Titolo originale: <span>{{film.original_title}}</span></h4>
-                <h4>Voto: <span>
-                <!-- {{film.star}} -->
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                </span></h4>
 
-                <div class="overview">
-                  <h4>Overview:
-                    <span>{{(film.overview == '') ? alternative_overview : film.overview}}</span></h4>
+            <template v-if="result_search == 0">
+              <div class="search_failed" >
+                <h3>Spiacenti. Nessun risultato per la tua ricerca di "{{text}}"</h3>
+                <p>Suggerimenti:</p>
+                <ul>
+                  <li>Prova con parole chiave diverse</li>
+                  <li>Cerchi un film o un programma TV?</li>
+                  <li>Prova a usare il titolo di un film o programma tv</li>
+              </ul>
+              </div>
+            </template>
+
+            <template v-else>
+              <div class="card" v-for="(film, index) in films" >
+                <img
+                  :src="(film.poster_path == null) ? alternative_path : path + film.poster_path"
+                  alt="cover">
+                <div class="info">
+                  <h4>Titolo: <span>{{film.title}}</span></h4>
+                  <h4 v-if="(film.original_title != film.title)">
+                    Titolo originale:
+                    <span>{{film.original_title}}</span>
+                  </h4>
+
+                  <div class="flag">
+                    <h4>Lingua:
+                      <img v-if="(film.original_language == 'it')" src="img/it-01.webp" alt="">
+                      <img v-else-if="(film.original_language == 'en')" src="img/en-01.png" alt="">
+                      <img v-else-if="(film.original_language == 'es')" src="img/es-01.webp" alt="">
+                      <span v-else>{{film.original_language}}</span>
+                    </h4>
+                  </div>
+
+                  <h4>Voto:
+                    <span>
+                      <!-- <i class="fas fa-star"></i> -->
+                      <i :class="(film.vote_average >= 1) ? 'fas fa-star': 'far fa-star'"></i>
+                      <i :class="(film.vote_average >= 2) ? 'fas fa-star': 'far fa-star'"></i>
+                      <i :class="(film.vote_average >= 3) ? 'fas fa-star': 'far fa-star'"></i>
+                      <i :class="(film.vote_average >= 4) ? 'fas fa-star': 'far fa-star'"></i>
+                      <i :class="(film.vote_average > 4) ? 'fas fa-star': 'far fa-star'"></i>
+                    </span>
+                  </h4>
+
+                  <div class="overview">
+                    <h4>Overview:
+                      <span>{{(film.overview == '') ? alternative_overview : film.overview}}</span>
+                    </h4>
+                  </div>
                 </div>
               </div>
-            </div>
+            </template>
 
           </div>
         </div>
-
       </main>
 
     </div>
-
-
-
-
+    <!-- Chiusura #root -->
 
   <script src="js/main.js" charset="utf-8"></script>
   </body>
