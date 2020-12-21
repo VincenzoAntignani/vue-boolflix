@@ -25,15 +25,15 @@
               <img src="img/logo.png" alt="logo-netflix">
               <ul>
                 <li><a href="">Home</a></li>
-                <li><a href="" @click="showTopRated()">Più votati</a></li>
+                <li><a href="">Più votati</a></li>
                 <li><a href="">Film</a></li>
                 <li><a href="">Popolari</a></li>
                 <li><a href="">La mia lista</a></li>
               </ul>
             </div>
             <div class="cont_input">
-              <input type="text" name="" value="" placeholder="Cerca" v-model="text" @keyup.enter="searchFilms()">
-              <button type="button" name="button" @click="searchFilms()">
+              <input type="text" name="" value="" placeholder="Cerca" v-model="text" @keyup.enter="searchFilms(), searchSeriesTv()">
+              <button type="button" name="button" @click="searchFilms(), searchSeriesTv()">
                 <i class="fas fa-search"></i>
               </button>
             </div>
@@ -58,6 +58,7 @@
             </template>
 
             <template v-else>
+              <h1>film</h1>
               <div class="card" v-for="(film, index) in films" >
                 <img
                   :src="(film.poster_path == null) ? alternative_path : path + film.poster_path"
@@ -80,7 +81,6 @@
 
                   <h4>Voto:
                     <span>
-                      <!-- <i class="fas fa-star"></i> -->
                       <i :class="(film.vote_average >= 1) ? 'fas fa-star': 'far fa-star'"></i>
                       <i :class="(film.vote_average >= 2) ? 'fas fa-star': 'far fa-star'"></i>
                       <i :class="(film.vote_average >= 3) ? 'fas fa-star': 'far fa-star'"></i>
@@ -92,6 +92,46 @@
                   <div class="overview">
                     <h4>Overview:
                       <span>{{(film.overview == '') ? alternative_overview : film.overview}}</span>
+                    </h4>
+                  </div>
+                </div>
+              </div>
+              <!-- Fine sezione film -->
+              <!-- Inizio sezione serie tv -->
+              <h1>serie tv</h1>
+              <div class="card" v-for="(serie, index) in seriesTv" >
+                <img
+                  :src="(serie.poster_path == null) ? alternative_path : path + serie.poster_path"
+                  alt="cover">
+                <div class="info">
+                  <h4>Titolo: <span>{{serie.name}}</span></h4>
+                  <h4 v-if="(serie.original_name != serie.name)">
+                    Titolo originale:
+                    <span>{{serie.original_name}}</span>
+                  </h4>
+
+                  <div class="flag">
+                    <h4>Lingua:
+                      <img v-if="(serie.original_language == 'it')" src="img/it-01.webp" alt="">
+                      <img v-else-if="(serie.original_language == 'en')" src="img/en-01.png" alt="">
+                      <img v-else-if="(serie.original_language == 'es')" src="img/es-01.webp" alt="">
+                      <span v-else>{{serie.original_language}}</span>
+                    </h4>
+                  </div>
+
+                  <h4>Voto:
+                    <span>
+                      <i :class="(serie.vote_average >= 1) ? 'fas fa-star': 'far fa-star'"></i>
+                      <i :class="(serie.vote_average >= 2) ? 'fas fa-star': 'far fa-star'"></i>
+                      <i :class="(serie.vote_average >= 3) ? 'fas fa-star': 'far fa-star'"></i>
+                      <i :class="(serie.vote_average >= 4) ? 'fas fa-star': 'far fa-star'"></i>
+                      <i :class="(serie.vote_average > 4) ? 'fas fa-star': 'far fa-star'"></i>
+                    </span>
+                  </h4>
+
+                  <div class="overview">
+                    <h4>Overview:
+                      <span>{{(serie.overview == '') ? alternative_overview : serie.overview}}</span>
                     </h4>
                   </div>
                 </div>
