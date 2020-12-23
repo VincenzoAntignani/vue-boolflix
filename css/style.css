@@ -5,8 +5,7 @@
 }
 body {
   height: 100vh;
-  /* background: url('https://www.requalifica.net/images/pic02.gif'); */
-  background-image: url('../img/sfondo2.gif');
+  background-image: url('../img/sfondo.gif');
   background-size: cover;
   background-position: center;
   font-family: 'Nunito', sans-serif;
@@ -94,6 +93,11 @@ header {
 }
 .header_content .cont_input input {
   border-right: none;
+  transition: width 1s;
+  width: 70px;
+}
+.header_content .cont_input input:hover {
+  width: 250px;
 }
 .header_content .cont_input input[placeholder] {
   color: white;
@@ -102,7 +106,6 @@ header {
   color: #949493;
   cursor: pointer;
   border-left: none;
-  transition: 0.5s;
 }
 .header_content .cont_input button:hover i {
   transform: scale(1.2);
@@ -112,13 +115,13 @@ header {
 main {
   display: flex;
   position: relative;
-  padding: 30px 0;
   height: calc(100% - 70px);
   overflow: auto;
 }
 
+
 main .search_failed {
-  margin: auto;
+  margin: 10% auto;
   padding: 20px;
   width: 50%;
   background: #151c1d;
@@ -132,8 +135,18 @@ main .search_failed {
   padding-left: 30px;
 }
 
+main .search_content {
+  width: 85%;
+  padding: 0 10px;
+}
 
-main .search_content .card {
+main .search_nav {
+  width: 15%;
+  min-height: 100%;
+  background: lightgrey;
+}
+
+.search_content .card {
   display: inline-block;
   position: relative;
   margin: 10px;
@@ -187,16 +200,16 @@ main .search_content .card {
 .search_content .card .info h4 > span > i {
   color: #fcd503;
 }
-.search_content .card .info .flag {
-  display: flex;
-  align-items: center;
+.search_content .card .info .flag span {
+  margin-left: 5px;
 }
 .search_content .card .info .flag h4 > img {
   height: 20px;
+  margin-left: 5px;
 }
 .search_content .card .info .overview {
   position: relative;
-  max-height: 100px;
+  max-height: 120px;
   overflow-y: auto;
   opacity: 0;
   transition: 0.5s;

@@ -32,8 +32,8 @@
               </ul>
             </div>
             <div class="cont_input">
-              <input type="text" name="" value="" placeholder="Cerca" v-model="text" @keyup.enter="searchFilms(), searchSeriesTv()">
-              <button type="button" name="button" @click="searchFilms(), searchSeriesTv()">
+              <input type="text" name="" value="" placeholder="Cerca" v-model="text" @keyup.enter="searchFilmsSeries()">
+              <button type="button" name="button" @click="searchFilmsSeries()">
                 <i class="fas fa-search"></i>
               </button>
             </div>
@@ -42,9 +42,19 @@
       </header>
 
       <main>
-        <div class="wrapper_80">
-          <div class="search_content">
+        <!-- <div class="wrapper_80"> -->
 
+          <div class="search_nav">
+            <h2 for="">Cerca per genere</h2>
+            <select name="" v-model="valueGenre">
+              <option value="">All Genres</option>
+              <option :value="genre" v-for="genre in genres">
+                  {{ genre.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="search_content">
             <template v-if="result_search == 0">
               <div class="search_failed" >
                 <h3>Spiacenti. Nessun risultato per la tua ricerca di "{{text}}"</h3>
@@ -57,48 +67,46 @@
               </div>
             </template>
 
-            <template v-else>
-              <h1>film</h1>
-              <div class="card" v-for="(film, index) in films" >
-                <img
-                  :src="(film.poster_path == null) ? alternative_path : path + film.poster_path"
-                  alt="cover">
-                <div class="info">
-                  <h4>Titolo: <span>{{film.title}}</span></h4>
-                  <h4 v-if="(film.original_title != film.title)">
-                    Titolo originale:
-                    <span>{{film.original_title}}</span>
-                  </h4>
+            <template v-else-if="result_search > 0">
+              <h1 v-if="films.length != 0">film</h1>
+              <div class="card" v-for="(film, index) in films">
+                    <img
+                    :src="(film.poster_path == null) ? alternative_path : path + film.poster_path"
+                    alt="cover">
+                    <div class="info">
+                      <h4>Titolo: <span>{{film.title}}</span></h4>
+                      <h4 v-if="(film.original_title != film.title)">
+                        Titolo originale:
+                        <span>{{film.original_title}}</span>
+                      </h4>
 
-                  <div class="flag">
-                    <h4>Lingua:
-                      <img v-if="(film.original_language == 'it')" src="img/it-01.webp" alt="">
-                      <img v-else-if="(film.original_language == 'en')" src="img/en-01.png" alt="">
-                      <img v-else-if="(film.original_language == 'es')" src="img/es-01.webp" alt="">
-                      <span v-else>{{film.original_language}}</span>
-                    </h4>
+                      <div class="flag">
+                        <h4>Lingua:
+                          <img v-if="flags(film.original_language)" :src="flags(film.original_language)" alt="flags">
+                          <span v-else>{{film.original_language}}</span>
+                        </h4>
+                      </div>
+
+                      <h4>Voto:
+                        <span>
+                          <i :class="(film.vote_average >= 1) ? 'fas fa-star': 'far fa-star'"></i>
+                          <i :class="(film.vote_average >= 2) ? 'fas fa-star': 'far fa-star'"></i>
+                          <i :class="(film.vote_average >= 3) ? 'fas fa-star': 'far fa-star'"></i>
+                          <i :class="(film.vote_average >= 4) ? 'fas fa-star': 'far fa-star'"></i>
+                          <i :class="(film.vote_average > 4) ? 'fas fa-star': 'far fa-star'"></i>
+                        </span>
+                      </h4>
+
+                      <div class="overview">
+                        <h4>Overview:
+                          <span>{{(film.overview == '') ? alternative_overview : film.overview}}</span>
+                        </h4>
+                      </div>
+                    </div>
                   </div>
-
-                  <h4>Voto:
-                    <span>
-                      <i :class="(film.vote_average >= 1) ? 'fas fa-star': 'far fa-star'"></i>
-                      <i :class="(film.vote_average >= 2) ? 'fas fa-star': 'far fa-star'"></i>
-                      <i :class="(film.vote_average >= 3) ? 'fas fa-star': 'far fa-star'"></i>
-                      <i :class="(film.vote_average >= 4) ? 'fas fa-star': 'far fa-star'"></i>
-                      <i :class="(film.vote_average > 4) ? 'fas fa-star': 'far fa-star'"></i>
-                    </span>
-                  </h4>
-
-                  <div class="overview">
-                    <h4>Overview:
-                      <span>{{(film.overview == '') ? alternative_overview : film.overview}}</span>
-                    </h4>
-                  </div>
-                </div>
-              </div>
               <!-- Fine sezione film -->
               <!-- Inizio sezione serie tv -->
-              <h1>serie tv</h1>
+              <h1 v-if="seriesTv.length != 0">serie tv</h1>
               <div class="card" v-for="(serie, index) in seriesTv" >
                 <img
                   :src="(serie.poster_path == null) ? alternative_path : path + serie.poster_path"
@@ -137,9 +145,8 @@
                 </div>
               </div>
             </template>
-
           </div>
-        </div>
+        <!-- </div> -->
       </main>
 
     </div>
