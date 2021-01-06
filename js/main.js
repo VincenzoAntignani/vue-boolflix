@@ -13,6 +13,7 @@ const app = new Vue (
       tvOnTheAir: [], // serie tv in onda oggi
       tvPopulars: [], // serie tv popolari
       tvTopRated: [], // serie tv piu votate
+      genres: [],
       text: '',
       alternative_path: 'img/imageComingSoon.jpg',
       alternative_overview: 'Descrizione al momento non disponibile',
@@ -257,8 +258,8 @@ const app = new Vue (
               console.log(self.tvTopRated)
             }
           )
-      },
-
+      }, // showTvTopRated
+      //menu serieTv
 
 
       flags: function(language) {
@@ -279,8 +280,6 @@ const app = new Vue (
         }
       }, //stars
 
-
-
     }, //Methods
 
     mounted: function() {
@@ -297,7 +296,7 @@ const app = new Vue (
         )
         .then(function(response) {
             self.queenGambit = response.data.results;
-            console.log(self.queenGambit)
+            // console.log(self.queenGambit)
 
           }
         ) // La regina degli scacchi
@@ -316,6 +315,21 @@ const app = new Vue (
 
             }
           ) // On the air
+
+          axios
+            .get('https://api.themoviedb.org/3/genre/movie/list',  {
+              params: {
+                api_key: 'd631125b3120a33333b536f9aa3c36e9',
+                language: 'it-IT'
+                }
+              }
+            )
+            .then(function(response) {
+                self.genres = response.data.genres;
+                console.log(self.genres)
+
+              }
+            ) // genres
 
 
 

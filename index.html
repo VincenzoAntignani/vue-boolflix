@@ -21,7 +21,7 @@
     <div id="root">
 
       <header>
-        <div class="wrapper_80">
+        <div class="wrapper_90">
           <div class="header_content">
             <div class="nav_bar">
               <div class="css-text-mask">ANTIFLIX</div>
@@ -43,6 +43,12 @@
                       <li @click="showTvTopRated()">Più votati</li>
                     </ul>
                   </li>
+                  <li class="fs_menu">Generi<i class="fas fa-chevron-down"></i>
+                    <ul class="sub_nav_menu">
+                      <li>Tutti</li>
+                      <li v-for="genre in genres">{{genre.name}}</li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
               <!-- /Menu -->
@@ -52,6 +58,11 @@
               <button type="button" name="button" @click="searchFilmsSeries()">
                 <i class="fas fa-search"></i>
               </button>
+              <div class="cta">
+                <i class="fas fa-bell"></i>
+                <img src="img/avatar.jpg" alt="">
+              </div>
+
             </div>
           </div>
         </div>
@@ -200,7 +211,6 @@
               </div>
             </template>
 
-
             <!-- On the air -->
             <template v-if="(populars.length == 0) && (topRated.length == 0) && (upComing.length == 0)">
               <h2 v-if="onTheAir.length != 0">serie tv in onda</h2>
@@ -240,7 +250,7 @@
 
             <!-- Populars -->
             <template v-if="populars.length != 0">
-                <h2>popolari</h2>
+                <h2>film popolari</h2>
                 <div class="card" v-for="(film, index) in populars">
                   <img
                   :src="(film.poster_path == null) ? alternative_path : path + film.poster_path"
@@ -276,7 +286,7 @@
 
             <!-- Top rated -->
             <template v-if="topRated.length != 0">
-                <h2>più votati</h2>
+                <h2>film più votati</h2>
                 <div class="card" v-for="(film, index) in topRated">
                 <img
                 :src="(film.poster_path == null) ? alternative_path : path + film.poster_path"
@@ -312,7 +322,7 @@
 
             <!-- Up coming -->
             <template v-if="upComing.length != 0">
-                  <h2>in arrivo</h2>
+                  <h2>film in arrivo</h2>
                   <div class="card" v-for="(film, index) in upComing">
                   <img
                   :src="(film.poster_path == null) ? alternative_path : path + film.poster_path"
@@ -433,6 +443,16 @@
           </template>
         </div>
       </main>
+
+      <footer>
+        <div class="wrapper_90">
+          <div class="cont_footer">
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+      </footer>
 
     </div>
     <!-- Chiusura #root -->
